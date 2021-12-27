@@ -26,17 +26,16 @@
 
             <% for(let i= 0 ; i < contents.length; i++){ %>
             <div class="post-preview">
-              <a href="/post">
+              <a href="/posts/<%= contents[i]._id%>">
                 <h2 class="post-title">
                   <%= contents[i].title %>
                 </h2>
                 <h3 class="post-subtitle">
-                  <%= contents[i].descriptions  %>
+                  <%= contents[i].descriptions.slice(0,50)  %>...
                 </h3>
               </a>
-              <p class="post-meta">Posted by
-                <a href="#">Start Bootstrap</a>
-                on <%= contents[i].dateCreated %>
+              <p class="post-meta">Posted
+                on <%= contents[i].dateCreated.toISOString().replace(/T/, ' ').replace(/\..+/, '') %>
               </p>
             </div>
             <hr>

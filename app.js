@@ -46,6 +46,12 @@ app.post('/content', async (req, res)=>{
   res.redirect('/')
 })
 
+app.get('/posts/:id', async (req,res)=>{
+  const content = await Content.findById(req.params.id)
+  res.render('posts',{
+    content
+  })
+})
 
 const port = 3000;
 app.listen(port, () => {
