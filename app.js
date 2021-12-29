@@ -10,8 +10,7 @@ const articleControllers = require('./controllers/articleControllers');
 const app = express();
 
 //connect DB
-//mongoose.connect('mongodb://127.0.0.1:27017/cleanBlog-onn-db');
-mongoose.connect('mongodb+srv://bbzen:eg3uH1sj8CoYIf9u@cluster0.njfpk.mongodb.net/cleanBlog-onn-db?retryWrites=true&w=majority');
+mongoose.connect('mongodb://127.0.0.1:27017/cleanBlog-onn-db');
 
 //template engine
 app.set('view engine', 'ejs');
