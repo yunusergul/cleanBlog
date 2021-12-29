@@ -38,7 +38,7 @@ app.get('/articles/:id', articleControllers.getDetailArticle);
 app.delete('/articles/:id', articleControllers.deletePost);
 app.put('/articles/:id', articleControllers.UpdatePost);
 
-const port = process.env.port || 5000;
-app.listen(port, () => {
-  console.log(` localhost:${port}`);
+const server = app.listen(process.env.PORT || 5000, () => {
+  const port = server.address().port;
+  console.log(`Express is working on port ${port}`);
 });
