@@ -10,7 +10,8 @@ const articleControllers = require('./controllers/articleControllers');
 const app = express();
 
 //connect DB
-mongoose.connect('mongodb://127.0.0.1:27017/cleanBlog-onn-db');
+//mongoose.connect('mongodb://127.0.0.1:27017/cleanBlog-onn-db');
+mongoose.connect('mongodb+srv://bbzen:eg3uH1sj8CoYIf9u@cluster0.njfpk.mongodb.net/cleanBlog-onn-db?retryWrites=true&w=majority');
 
 //template engine
 app.set('view engine', 'ejs');
@@ -37,7 +38,7 @@ app.get('/articles/:id', articleControllers.getDetailArticle);
 app.delete('/articles/:id', articleControllers.deletePost);
 app.put('/articles/:id', articleControllers.UpdatePost);
 
-const port = 3000;
+const port = process.env.port || 5000;
 app.listen(port, () => {
   console.log(` localhost:${port}`);
 });

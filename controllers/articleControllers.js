@@ -26,9 +26,17 @@ exports.addContent = async (req, res) => {
 };
 
 exports.getAllPost = async (req, res) => {
-  const contents = await Content.find({}).sort('-dateCreated');
+  const page = req.query.page || 1;
+  const photoPerPage = 3;
+  const totalPhotos= await Content.find().countDocuments();
+  const contents = await Content.find({})
+  .sort('-dateCreated')
+  .skip((page-1)*photoPerPage)
+  .limit(photoPerPage)
   res.render('index', {
     contents,
+    current:page,
+    pages:Math.ceil(totalPhotos/ photoPerPage)
   });
 };
 
