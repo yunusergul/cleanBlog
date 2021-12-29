@@ -1,6 +1,6 @@
 const Content = require('../models/content');
 const fs = require('fs');
-const Photo = require('../../PCAT/models/Photo');
+
 
 exports.getDetailArticle = async (req, res) => {
   const content = await Content.findById(req.params.id);
