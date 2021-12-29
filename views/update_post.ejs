@@ -5,7 +5,7 @@
     <%- include('partials/_navigation') -%>
 
       <!-- Page Header -->
-      <header class="masthead" style="background-image: url('img/contact-bg.jpg')">
+      <header class="masthead" style="background-image: url('<%= content.slidePhoto %>')">
         <div class="overlay"></div>
         <div class="container">
           <div class="row">
@@ -18,16 +18,16 @@
           </div>
         </div>
       </header>
-
+      
       <!-- Main Content -->
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
-            <form method="POST"  encType="multipart/form-data" action="/articles" novalidate>
+            <form method="POST" action="/articles/<%= content._id %>?_method=PUT"  encType="multipart/form-data" action="/add_content" novalidate>
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
                   <label>Post Title</label>
-                  <input type="text" class="form-control" name='title' placeholder="title" id="title" required
+                  <input type="text" value="<%= content.title %>" class="form-control" name='title' placeholder="title" id="title" required
                     data-validation-required-message="Please enter your title.">
                   <p class="help-block text-danger"></p>
                 </div>
@@ -36,22 +36,18 @@
                 <div class="form-group floating-label-form-group controls">
                   <label>Post Detail</label>
                   <textarea rows="5" class="form-control" name="descriptions" placeholder="descriptions" id="articles" required
-                    data-validation-required-message="Please enter a article."></textarea>
+                    data-validation-required-message="Please enter a article."> <%= content.descriptions %></textarea>
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
-              <div class="form-group">
-                <input type="file" name="image" class="form-control-file rounded-0">
-              </div>
               <br>
               <div id="success"></div>
-              <button type="submit" class="btn btn-primary" id="sendMessageButton">Send</button>
+              <button type="submit" class="btn btn-primary" id="sendMessageButton">Save</button>
+              <a href="/articles/<%= content._id %>" type="button" class="btn btn-danger">X</a>
             </form>
           </div>
         </div>
       </div>
 
       <hr>
-
-
-      <%- include('partials/_footer') -%>
+      <%- include('partials/_footer') -%></hr>

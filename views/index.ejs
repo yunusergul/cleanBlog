@@ -12,7 +12,6 @@
             <div class="col-lg-8 col-md-10 mx-auto">
               <div class="site-heading">
                 <h1>Clean Blog</h1>
-                <span class="subheading">A Blog Theme by Start Bootstrap</span>
               </div>
             </div>
           </div>
@@ -26,12 +25,12 @@
 
             <% for(let i= 0 ; i < contents.length; i++){ %>
             <div class="post-preview">
-              <a href="/posts/<%= contents[i]._id%>">
+              <a href="/articles/<%= contents[i]._id%>">
                 <h2 class="post-title">
                   <%= contents[i].title %>
                 </h2>
                 <h3 class="post-subtitle">
-                  <%= contents[i].descriptions.slice(0,50)  %>...
+                  <%= contents[i].descriptions.length > 50 ? contents[i].descriptions.slice(0,50) + "..." : contents[i].descriptions.slice(0,50)   %>
                 </h3>
               </a>
               <p class="post-meta">Posted

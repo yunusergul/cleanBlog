@@ -1,57 +1,41 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const fileUpload = require('express-fileupload');
+const methodOverride = require('method-override');
 
 const ejs = require('ejs');
-const path = require('path');
 
-const Content = require('./models/content')
-
+const pageCppntroller = require('./controllers/pageControllers');
+const articleControllers = require('./controllers/articleControllers');
 const app = express();
-
 
 //connect DB
 mongoose.connect('mongodb://127.0.0.1:27017/cleanBlog-onn-db');
 
-
 //template engine
-app.set("view engine", "ejs");
+app.set('view engine', 'ejs');
 
 //middlewares
 app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-
-app.get('/', async (req, res) => {
-  const contents = await Content.find({})
-  res.render('index',{
-    contents
+app.use(fileUpload());
+app.use(
+  methodOverride('_method', {
+    methods: ['POST', 'GET'],
   })
-});
+);
 
-app.get('/post', (req, res) => {
-  res.render('post')
-});
+app.get('/update_post', pageCppntroller.updatePost);
+app.get('/add_post', pageCppntroller.getAddAticle);
+app.get('/about', pageCppntroller.getAboutPage);
+app.get('/articles/edit/:id', pageCppntroller.UpdatePostPage);
+app.get('/', articleControllers.getAllPost);
 
-app.get('/add_post', (req, res) => {
-  res.render('add_post')
-});
-
-app.get('/about', (req, res) => {
-  res.render('about')
-});
-
-app.post('/content', async (req, res)=>{
-  await Content.create(req.body)
-  res.redirect('/')
-})
-
-app.get('/posts/:id', async (req,res)=>{
-  const content = await Content.findById(req.params.id)
-  res.render('posts',{
-    content
-  })
-})
+app.post('/articles', articleControllers.addContent);
+app.get('/articles/:id', articleControllers.getDetailArticle);
+app.delete('/articles/:id', articleControllers.deletePost);
+app.put('/articles/:id', articleControllers.UpdatePost);
 
 const port = 3000;
 app.listen(port, () => {
